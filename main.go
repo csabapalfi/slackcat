@@ -73,7 +73,7 @@ func main() {
 	verbose := flag.Bool("v", false, "verbose output")
 	token := flag.String("token", "", "Slack token")
 	channel := flag.String("channel", "", "Slack channel")
-	tee := flag.Bool("tee", false, "tee stdin to both stdout and slack")
+	tee := flag.Bool("tee", false, "tee stdin to both stdout and Slack")
 
 	flag.Parse()
 

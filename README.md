@@ -1,6 +1,6 @@
 # slackcat
 
-Post to Slack from your standard input.
+Post to Slack from stdin.
 
 ## usage
 
