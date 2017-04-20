@@ -24,11 +24,11 @@ echo "hello" | slackcat -channel=$YOUR_CHANNEL
 echo "hello" | slackcat -channel=$YOUR_CHANNEL -token=$SLACK_TOKEN
 ```
 
-### treat stdin as [Slack attachment](https://api.slack.com/docs/message-attachments)
+### treat stdin as a [Slack attachment](https://api.slack.com/docs/message-attachments)
 ```sh
 echo attachment.json | slackcat -channel=$YOUR_CHANNEL --attachment
 ```
-Check out the [Slack Message Builder](https://api.slack.com/docs/messages/builder) to give you an idea. Also please find a simple example JSON below:
+Check out the [Slack Message Builder](https://api.slack.com/docs/messages/builder) to give you an idea. Also please find some simple example JSON below:
 ```json
 {
   "fallback": "Required plain-text summary of the attachment.",
