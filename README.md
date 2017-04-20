@@ -2,25 +2,29 @@
 
 Post to Slack from stdin.
 
-## usage examples
+## installation
 
-* simple usage
+Grab the [latest release from Github](https://github.com/csabapalfi/slackcat/releases/latest).
+
+## usage
+
+### simple usage
 ```sh
 echo "hello" | slackcat -channel=$YOUR_CHANNEL
 ```
 
-* use token from environment variable
+### use token from environment variable
 ```sh
 export SLACK_TOKEN=$SLACK_TOKEN
 echo "hello" | slackcat -channel=$YOUR_CHANNEL
 ```
 
-* use token from command line flag
+### use token from command line flag
 ```sh
 echo "hello" | slackcat -channel=$YOUR_CHANNEL -token=$SLACK_TOKEN
 ```
 
-* treat stdin as [Slack attachment](https://api.slack.com/docs/message-attachments)
+### treat stdin as [Slack attachment](https://api.slack.com/docs/message-attachments)
 ```sh
 echo attachment.json | slackcat -channel=$YOUR_CHANNEL --attachment
 ```
@@ -35,19 +39,15 @@ Check out the [Slack Message Builder](https://api.slack.com/docs/messages/builde
 }
 ```
 
-* tee stdin to both stdout and Slack
+### tee stdin to stdout and Slack
 ```sh
 echo "hello" | slackcat -channel=$YOUR_CHANNEL -tee
 ```
 
-* verbose output (print slack API response)
+### verbose output (print slack API response)
 ```sh
 echo "hello" | slackcat -channel=$YOUR_CHANNEL -v
 ```
-
-## installation
-
-Grab the [latest release from Github](https://github.com/csabapalfi/slackcat/releases/latest).
 
 ## why?
 
