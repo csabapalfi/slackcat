@@ -74,12 +74,14 @@ func postToSlack(slackURL string, verbose bool) {
 
 func main() {
 	verbose := flag.Bool("v", false, "verbose output")
-	attachment := flag.Bool("attachment", false, "treat input as attachment (JSON object)")
+	attachment := flag.Bool("attachment", false, "treat input as Slack attachment")
 	token := flag.String("token", "", "Slack token")
 	channel := flag.String("channel", "", "Slack channel")
 	tee := flag.Bool("tee", false, "tee stdin to both stdout and Slack")
 
 	flag.Parse()
+
+	tokenFromEnv := os.Getenv("SLACK_TOKEN")
 
 	var stdin io.Reader = os.Stdin
 	if *tee {
@@ -91,6 +93,10 @@ func main() {
 		buffer.WriteString(scanner.Text())
 	}
 	message := buffer.String()
+
+	if *token == "" {
+		token = &tokenFromEnv
+	}
 
 	slackURL := buildSlackURL(*channel, message, *token, *attachment)
 	postToSlack(slackURL, *verbose)
