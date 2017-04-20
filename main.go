@@ -36,7 +36,7 @@ func getJSON(url string, target interface{}, verbose bool) error {
 	return json.NewDecoder(response.Body).Decode(target)
 }
 
-func buildSlackURL(channel, message, token string) string {
+func buildSlackURL(channel, message, token string, attachment bool) string {
 	slackURL := &url.URL{
 		Host:   "slack.com",
 		Scheme: "https",
@@ -45,20 +45,23 @@ func buildSlackURL(channel, message, token string) string {
 	q := slackURL.Query()
 	q.Set("token", token)
 	q.Set("channel", channel)
-	q.Set("text", message)
 	q.Set("as_user", "true")
+	if attachment {
+		q.Set("attachments", "["+message+"]")
+	} else {
+		q.Set("text", message)
+	}
 	slackURL.RawQuery = q.Encode()
 	return slackURL.String()
 }
 
-func postToSlack(channel, message, token string, verbose bool) {
+func postToSlack(slackURL string, verbose bool) {
 	type SlackResult struct {
 		Ok    bool
 		Error string
 	}
-	url := buildSlackURL(channel, message, token)
 	result := &SlackResult{}
-	err := getJSON(url, result, verbose)
+	err := getJSON(slackURL, result, verbose)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s\n\n", err)
 		os.Exit(1)
@@ -71,6 +74,7 @@ func postToSlack(channel, message, token string, verbose bool) {
 
 func main() {
 	verbose := flag.Bool("v", false, "verbose output")
+	attachment := flag.Bool("attachment", false, "treat input as attachment (JSON object)")
 	token := flag.String("token", "", "Slack token")
 	channel := flag.String("channel", "", "Slack channel")
 	tee := flag.Bool("tee", false, "tee stdin to both stdout and Slack")
@@ -88,5 +92,6 @@ func main() {
 	}
 	message := buffer.String()
 
-	postToSlack(*channel, message, *token, *verbose)
+	slackURL := buildSlackURL(*channel, message, *token, *attachment)
+	postToSlack(slackURL, *verbose)
 }
