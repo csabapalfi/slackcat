@@ -13,7 +13,7 @@ Grab the [latest release from Github](https://github.com/csabapalfi/slackcat/rel
 echo "hello" | slackcat -channel=$YOUR_CHANNEL
 ```
 
-### use token from environment variable
+### use token from environment variable (default)
 ```sh
 export SLACK_TOKEN=$SLACK_TOKEN
 echo "hello" | slackcat -channel=$YOUR_CHANNEL
@@ -26,7 +26,7 @@ echo "hello" | slackcat -channel=$YOUR_CHANNEL -token=$SLACK_TOKEN
 
 ### treat stdin as a [Slack attachment](https://api.slack.com/docs/message-attachments)
 ```sh
-echo attachment.json | slackcat -channel=$YOUR_CHANNEL --attachment
+echo attachment.json | slackcat -channel=$YOUR_CHANNEL -attachment
 ```
 Check out the [Slack Message Builder](https://api.slack.com/docs/messages/builder) to give you an idea. Also please find some simple example JSON below:
 ```json
