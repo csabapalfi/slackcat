@@ -26,7 +26,7 @@ echo "hello" | slackcat -channel=$YOUR_CHANNEL -token=$SLACK_TOKEN
 
 ### treat stdin as a [Slack attachment](https://api.slack.com/docs/message-attachments)
 ```sh
-echo attachment.json | slackcat -channel=$YOUR_CHANNEL -attachment
+cat attachment.json | slackcat -channel=$YOUR_CHANNEL -attachment
 ```
 Check out the [Slack Message Builder](https://api.slack.com/docs/messages/builder) to give you an idea. Also please find some simple example JSON below:
 ```json
